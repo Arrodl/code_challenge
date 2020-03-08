@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Arrodl/code_challenge#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pg": "^7.18.2",
+    "sequelize": "^5.21.5"
   }
 }
