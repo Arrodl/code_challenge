@@ -28,8 +28,8 @@ export default (props = {
     };
 
     return (
-        <div style={{ position: 'relative', padding: 10, paddingBottom: 60, height: '80vh' }} >
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', minWidth: 350, maxHeight: '100%', overflow: 'scroll' }}>
+        <div style={{ position: 'relative', padding: 10, paddingBottom: 60, height: '80vh', minWidth: 350 }} >
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: 'calc(80vh)', maxHeight: 'calc(80vh - 90px)', overflow: 'scroll' }}>
                 {data.map(message => (
                     <Grid key={message.id} container>
                         {message.userId !== props.currentUser.id && (

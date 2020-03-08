@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
 const http = require('http');
-const WebSocket = require('websocket');
+const WebSocket = require('ws');
 
 const app = express();
 var corsOptions = { origin: "http://localhost:3000" };
@@ -13,18 +13,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var connectedUsers = [];
 
-// const server = http.createServer(app);
-// server.listen(1337, 'localhost', 0, () => {});
-// const wws = new WebSocket.server({
-//     httpServer: server,
+const wss = new WebSocket.Server({ server: app });
+wss.on('connection', (ws) => {
     
-// });
-
-// wws.on('request', (ws) => {
-    
-//     ws.send({ body: "Hola" });
-
-// });
+    ws.on('close', () => console.log('Client disconnected'));
+});
 
 const initial = () => {};
 
