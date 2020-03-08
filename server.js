@@ -2,12 +2,29 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
+const http = require('http');
+const WebSocket = require('websocket');
 
 const app = express();
 var corsOptions = { origin: "http://localhost:3000" };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+var connectedUsers = [];
+
+// const server = http.createServer(app);
+// server.listen(1337, 'localhost', 0, () => {});
+// const wws = new WebSocket.server({
+//     httpServer: server,
+    
+// });
+
+// wws.on('request', (ws) => {
+    
+//     ws.send({ body: "Hola" });
+
+// });
 
 const initial = () => {};
 

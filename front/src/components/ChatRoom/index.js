@@ -7,6 +7,7 @@ export default (props = {
 }) => {
     const [data, setData] = useState([]);
     const [body, setBody] = useState("");
+    const [webSocket] = useState(new WebSocket('wss://localhost:1337/'));
 
     useEffect(() => {
         const getMessages = async () => {
@@ -19,6 +20,8 @@ export default (props = {
 
         getMessages();
     }, []);
+
+    console.log(webSocket);
 
     const sendMessage = async () => {
         await axios.post('http://localhost:8080/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
