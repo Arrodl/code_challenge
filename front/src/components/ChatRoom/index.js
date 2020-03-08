@@ -11,7 +11,7 @@ export default (props = {
 
     useEffect(() => {
         const getMessages = async () => {
-            const res = await axios.get('http://localhost:8080/messages').then(r => r.data);
+            const res = await axios.get('https://codechallengeedge.herokuapp.com/messages').then(r => r.data);
 
             if (res && res.messages) {
                 setData(res.messages.reverse());
@@ -24,7 +24,7 @@ export default (props = {
     console.log(webSocket);
 
     const sendMessage = async () => {
-        await axios.post('http://localhost:8080/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
+        await axios.post('https://codechallengeedge.herokuapp.com/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
     };
 
     return (

@@ -12,7 +12,7 @@ const getUser = () => secure.get('cc:user');
 const setLoggedUser = (value) => secure.set('cc:user', value);
 
 export const logIn = async (data = { username: "", password: "" }) => {
-    return await axios.post('http://localhost:8080/api/auth/signin', data)
+    return await axios.post('http://codechallengeedge.herokuapp.com/api/auth/signin', data)
         .then(r => {
             setToken(r.data.token);
             axios.defaults.headers = { 'x-access-token': r.data.token };
@@ -22,7 +22,7 @@ export const logIn = async (data = { username: "", password: "" }) => {
 };
 
 export const register = async (data = { username: "", password: "" }) => {
-    const res = await axios.post('http://localhost:8080/api/auth/signup', data)
+    const res = await axios.post('http://codechallengeedge.herokuapp.com/api/auth/signup', data)
         .then(r => r.data).catch(e => e.response && e.response.data);
     return res || false;
 };
