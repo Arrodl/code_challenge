@@ -32,6 +32,7 @@ db.sequelize.sync({ force: false }).then(() => {
 app.get("/home", (req, res) => {
     res.json({ message: "Edgewater Markets." });
 });
+app.get("/", "Hola");
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/message.routes')(app);
