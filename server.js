@@ -51,14 +51,18 @@ wss.on('connection', (ws) => {
             //     response.pipe(file);
             // });
             // console.log(request);
-            ws.send(JSON.stringify({
-                id: 'stock',
-                body: "APPL.US quote is $93.42 per share”."
-            }));
+            wss.clients.forEach((client) => {
+                client.send(JSON.stringify({
+                    id: 'stock',
+                    body: "APPL.US quote is $93.42 per share”."
+                }));
+            });
         } else {
             //log the received message and send it back to the client
             Message.create(data).then(res => {
-                ws.send(JSON.stringify(res));
+                wss.clients.forEach((client) => {
+                    client.send(JSON.stringify(res));
+                });
             });
         }
     });

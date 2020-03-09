@@ -43,7 +43,6 @@ export default (props = {
         if (body.startsWith('/stock=')) {
             data.command = body.substr(7);
         }
-        console.log(data);
         webSocket.send(JSON.stringify(data));
         setBody("");
     };
