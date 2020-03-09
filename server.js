@@ -35,6 +35,7 @@ app.listen(PORT, () => {
 });
 
 const wss = new WebSocket.Server({ server: app });
+console.log(wss);
 wss.on('connection', (ws) => {
     
     ws.on('close', () => console.log('Client disconnected'));
