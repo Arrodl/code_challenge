@@ -13,12 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var connectedUsers = [];
 
-const wss = new WebSocket.Server({ server: app });
-wss.on('connection', (ws) => {
-    
-    ws.on('close', () => console.log('Client disconnected'));
-});
-
 const initial = () => {};
 
 // TODO: Remove forse for production
@@ -38,4 +32,10 @@ const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
+});
+
+const wss = new WebSocket.Server({ server: app });
+wss.on('connection', (ws) => {
+    
+    ws.on('close', () => console.log('Client disconnected'));
 });
