@@ -42,9 +42,9 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const server = http.Server();
+const server = http.createServer(1337);
 
-const io = socketIO.listen(1337);
+const io = socketIO.listen(server);
 
 io.on('connection', (socket) => {
     console.log('Client connected');
