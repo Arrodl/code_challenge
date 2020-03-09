@@ -7,7 +7,7 @@ const { Server } = require('ws');
 const socketIO = require('socket.io');
 
 const app = express();
-var corsOptions = { origin: "*" };
+var corsOptions = { origin: "http://localhost:3000" };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
