@@ -23,15 +23,19 @@ export default (props = {
     }, []);
 
     webSocket.onopen = (e)=> {
-        console.log("open", e)
+        console.log("open", e);
     }
 
     webSocket.onerror = (e) => {
-        console.log("error")
+        console.log("error");
     }
 
     webSocket.onmessage = (e) => {
-        console.log("Message", e);
+        if (e.data) {
+            const message = JSON.parse(e.data);
+            console.log(message);
+            setData([...data, message]);
+        }
     }
 
     const sendMessage = async () => {
