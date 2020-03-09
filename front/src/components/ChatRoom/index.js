@@ -38,9 +38,14 @@ export default (props = {
     }
 
     const sendMessage = async () => {
-        const data = { body, user_id: props.currentUser.id };
+        let data = { body, userId: props.currentUser.id };
+        // check if command
+        if (body.startsWith('/stock=')) {
+            data.command = body.substr(7);
+        }
+        console.log(data);
         webSocket.send(JSON.stringify(data));
-        // await axios.post('https://codechallengeedge.herokuapp.com/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
+        setBody("");
     };
 
     return (
@@ -50,13 +55,13 @@ export default (props = {
                     <Grid key={message.id} container>
                         {message.userId !== props.currentUser.id && (
                             <Grid item xs={10}>
-                                <Typography align="left" style={{ padding: 5 }}>{message.body}</Typography>
+                                <Typography align="left" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
                             </Grid>
                         )}
                         <Grid item xs={2} />
                         {message.userId === props.currentUser.id && (
                             <Grid item xs={10}>
-                                <Typography align="right" style={{ padding: 5 }}>{message.body}</Typography>
+                                <Typography align="right" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
                             </Grid>
                         )}
                     </Grid>

@@ -5,6 +5,7 @@ const db = require("./app/models");
 const Message = db.message;
 const http = require('http');
 const { Server } = require('ws');
+const fs = require('fs');
 
 const app = express();
 
@@ -41,10 +42,17 @@ wss.on('connection', (ws) => {
     //connection is up, let's add a simple simple event
     ws.on('message', (message) => {
         const data = JSON.parse(message);
-        //log the received message and send it back to the client
-        Message.create(data).then(res => {
-            ws.send(JSON.stringify(res));
-        });
+        // Check if command
+        if (data.command) {
+            const fileName = `https://stooq.com/q/l/?s=${data.command}&f=sd2t2ohlcv&h&e=csv`;
+            const file = fs.createWriteStream(fileName);
+            console.log(file);
+        } else {
+            //log the received message and send it back to the client
+            Message.create(data).then(res => {
+                ws.send(JSON.stringify(res));
+            });
+        }
     });
 
     //send immediatly a feedback to the incoming connection    
