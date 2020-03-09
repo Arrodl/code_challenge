@@ -13,10 +13,10 @@ const server = http.createServer(app);
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({ server });
 
-wss.on('connection', (ws: WebSocket) => {
+wss.on('connection', (ws) => {
 
     //connection is up, let's add a simple simple event
-    ws.on('message', (message: string) => {
+    ws.on('message', (message) => {
 
         //log the received message and send it back to the client
         console.log('received: %s', message);
@@ -31,8 +31,6 @@ wss.on('connection', (ws: WebSocket) => {
 server.listen(process.env.PORT || 8999, () => {
     console.log(`Server started on port ${server.address().port} :)`);
 });
-
-
 
 var corsOptions = { origin: "http://localhost:3000" };
 app.use(cors(corsOptions));
