@@ -21,9 +21,9 @@ export default (props = {
         getMessages();
     }, []);
     
-    const socket = io('https://codechallengeedge.herokuapp.com');
+    const socket = io('http://codechallengeedge.herokuapp.com/ws');
 
-    console.log(socket);
+    // console.log(socket);
 
     const sendMessage = async () => {
         await axios.post('https://codechallengeedge.herokuapp.com/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
