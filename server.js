@@ -40,9 +40,12 @@ wss.on('connection', (ws) => {
 
     //connection is up, let's add a simple simple event
     ws.on('message', (message) => {
-        console.log(message);
+        console.log(message.body, message.user_id);
         //log the received message and send it back to the client
-        Message.create(message).then(res => {
+        Message.create({
+            body: message.body,
+            user_id: message.user_id
+        }).then(res => {
             ws.send(JSON.stringify(res));
         });
     });
