@@ -35,18 +35,17 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const server = http.createServer(app);
-const io = socketIO(server, { handlePreflightRequest: (req, res) => {
-    const headers = {
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-        "Access-Control-Allow-Credentials": true
-    };
-    res.writeHead(200, headers);
-    res.end();
-} });
-io.origins('http://localhost:3000')
-io.on('connection', (socket) => {
+const { Server } = require('ws');
+
+const wss = new Server({ server });
+
+wss.on('connection', (ws) => {
     console.log('Client connected');
-    socket.on('disconnect', () => console.log('Client disconnected'));
+    ws.on('close', () => console.log('Client disconnected'));
 });
+
+setInterval(() => {
+    wss.clients.forEach((client) => {
+        client.send(new Date().toTimeString());
+    });
+}, 1000);
