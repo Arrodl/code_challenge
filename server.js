@@ -37,7 +37,7 @@ app.listen(PORT, () => {
 
 const server = http.createServer(app);
 const io = socketIO(server, { origins: '*:*' });
-console.log(io);
+io.origins('*:*')
 io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
