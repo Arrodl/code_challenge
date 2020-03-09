@@ -29,8 +29,8 @@ db.sequelize.sync({ force: false }).then(() => {
     initial();
 });
 
-app.get("/", (req, res) => {
-    res.json({ message: "Edgewater Markets." });
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
 });
 
 require('./app/routes/auth.routes')(app);
@@ -42,9 +42,9 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const server = http.createServer(1337);
+const server = http.Server(app);
 
-const io = socketIO.listen(server);
+const io = socketIO(server);
 
 io.on('connection', (socket) => {
     console.log('Client connected');
