@@ -42,7 +42,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const server = http.createServer({  });
+const server = http.createServer(app);
 
 const io = socketIO(server);
 
@@ -50,3 +50,4 @@ io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
 });
+server.listen(PORT);
