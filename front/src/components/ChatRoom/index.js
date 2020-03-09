@@ -7,7 +7,7 @@ export default (props = {
 }) => {
     const [data, setData] = useState([]);
     const [body, setBody] = useState("");
-    const [webSocket] = useState(new WebSocket('ws://codechallengeedge.herokuapp.com/WebsocketHome/actions'));
+    const [webSocket] = useState(new WebSocket('ws://codechallengeedge.herokuapp.com'));
 
     useEffect(() => {
         const getMessages = async () => {

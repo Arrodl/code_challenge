@@ -34,11 +34,11 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server: app });
 console.log(wss);
 wss.on('connection', (ws) => {
     console.log("conne")
     ws.on('open', () => console.log("fsfs"))
     ws.on('close', () => console.log('Client disconnected'));
+    ws.send('message');
 });
