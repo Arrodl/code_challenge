@@ -46,9 +46,7 @@ const server = http.Server(1337, "https://codechallenge.herokuapp.com");
 
 const io = socketIO(server);
 
-io.of('/ws').on('connection', (socket) => {
+io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
 });
-
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
