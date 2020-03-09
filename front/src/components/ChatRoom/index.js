@@ -33,14 +33,13 @@ export default (props = {
     webSocket.onmessage = (e) => {
         if (e.data) {
             const message = JSON.parse(e.data);
-            console.log(message);
             setData([...data, message]);
         }
     }
 
     const sendMessage = async () => {
         const data = { body, user_id: props.currentUser.id };
-        webSocket.send(data);
+        webSocket.send(JSON.stringify(data));
         // await axios.post('https://codechallengeedge.herokuapp.com/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
     };
 
