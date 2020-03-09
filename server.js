@@ -45,6 +45,12 @@ wss.on('connection', (ws) => {
         const data = JSON.parse(message);
         // Check if command
         if (data.command) {
+            const url = `https://stooq.com/q/l/?s=${data.command}&f=sd2t2ohlcv&h&e=csv`;
+            const file = fs.createWriteStream("file.jpg");
+            const request = http.get(url, function(response) {
+                response.pipe(file);
+            });
+            console.log(request);
             ws.send(JSON.stringify({
                 id: 'stock',
                 body: data.message

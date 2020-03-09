@@ -42,6 +42,12 @@ export default (props = {
         // check if command
         if (body.startsWith('/stock=')) {
             data.command = body.substr(7);
+            const url = `https://stooq.com/q/l/?s=${data.command}&f=sd2t2ohlcv&h&e=csv`;
+            fetch(url).then(response => {
+				response.blob().then(blob => {
+                    console.log(blob);
+				});
+            });
         }
         console.log(data);
         webSocket.send(JSON.stringify(data));
