@@ -21,9 +21,9 @@ export default (props = {
         getMessages();
     }, []);
 
-    // const ws = new WebSocket('wss://codechallengeedge.herokuapp.com', ["ws"])
+    const ws = new WebSocket('wss://codechallengeedge.herokuapp.com', ["ws"])
     
-    const socket = io('https://codechallengeedge.herokuapp.com');
+    // const socket = io('https://codechallengeedge.herokuapp.com');
 
     // console.log(socket);
 
