@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
+const Message = db.message;
 const http = require('http');
 const { Server } = require('ws');
 
@@ -19,16 +20,17 @@ wss.on('connection', (ws) => {
     ws.on('message', (message) => {
 
         //log the received message and send it back to the client
-        console.log('received: %s', message);
-        ws.send(`Hello, you sent -> ${message}`);
+        Message.create(message).then(res => {
+            ws.send(message);
+        });
     });
 
     //send immediatly a feedback to the incoming connection    
-    ws.send('Hi there, I am a WebSocket server');
+    ws.send({ id: 'bot', body: "Welcome to this chatroom!" });
 });
 
 //start our server
-server.listen(process.env.PORT || 8999, () => {
+server.listen(process.env.PORT || 8080, () => {
     console.log(`Server started on port ${server.address().port} :)`);
 });
 
@@ -53,9 +55,3 @@ db.sequelize.sync({ force: false }).then(() => {
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/message.routes')(app);
-
-const PORT = process.env.PORT || 8080;
-
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}.`);
-// });
