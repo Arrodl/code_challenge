@@ -42,7 +42,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const server = http.Server(1337, "https://codechallenge.herokuapp.com");
+const server = http.createServer({  });
 
 const io = socketIO(server);
 
