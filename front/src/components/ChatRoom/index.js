@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, TextField, InputAdornment, Button, Typography, Paper } from '@material-ui/core';
 import axios from 'axios';
+import io from 'socket.io';
 
 export default (props = {
     currentUser: null
 }) => {
     const [data, setData] = useState([]);
     const [body, setBody] = useState("");
-    const [webSocket] = useState(new WebSocket('ws://codechallengeedge.herokuapp.com'));
 
     useEffect(() => {
         const getMessages = async () => {
@@ -20,14 +20,10 @@ export default (props = {
 
         getMessages();
     }, []);
+    
+    const socket = io('https://codechallengeedge.herokuapp.com');
 
-    webSocket.onerror = (e => {
-        console.log("Error", e);
-    });
-
-    webSocket.onopen = (e => {
-        console.log("Open", e);
-    })
+    console.log(socket);
 
     const sendMessage = async () => {
         await axios.post('https://codechallengeedge.herokuapp.com/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
