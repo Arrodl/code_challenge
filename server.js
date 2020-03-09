@@ -21,7 +21,7 @@ db.sequelize.sync({ force: false }).then(() => {
     initial();
 });
 
-app.get("/", (req, res) => {
+app.get("/home", (req, res) => {
     res.json({ message: "Edgewater Markets." });
 });
 
