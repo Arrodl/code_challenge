@@ -47,6 +47,9 @@ export default (props = {
         setBody("");
     };
 
+    console.clear();
+    console.log(data);
+
     return (
         <div style={{ position: 'relative', padding: 10, paddingBottom: 60, height: '80vh', minWidth: 350, maxWidth: 350 }} >
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: 'calc(80vh)', maxHeight: 'calc(80vh - 90px)', overflow: 'scroll' }}>
