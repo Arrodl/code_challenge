@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
 const Message = db.message;
+const User = db.user;
 const http = require('http');
 const https = require('https');
 const { Server } = require('ws');
@@ -60,9 +61,17 @@ wss.on('connection', (ws) => {
         } else {
             //log the received message and send it back to the client
             Message.create(data).then(res => {
-                wss.clients.forEach((client) => {
-                    client.send(JSON.stringify(res));
-                });
+                if (res.userId) {
+                    User.findOne({ where: { id: res.userId } }).then(user => {
+                        wss.clients.forEach((client) => {
+                            client.send(JSON.stringify({ ...res, user }));
+                        });
+                    })
+                } else {
+                    wss.clients.forEach((client) => {
+                        client.send(JSON.stringify(res));
+                    });
+                }
             });
         }
     });

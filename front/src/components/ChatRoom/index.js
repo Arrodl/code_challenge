@@ -55,13 +55,13 @@ export default (props = {
                         <Grid key={message.id} container>
                             {message.userId !== props.currentUser.id && (
                                 <Grid item xs={10}>
-                                    <Typography align="left" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
+                                    <Typography align="left" style={{ padding: 5, color: message.id === 'bot' ? 'green' : message.id === "stock" ? 'purple' : 'black' }}>{message.body}</Typography>
                                 </Grid>
                             )}
                             <Grid item xs={2} />
                             {message.userId === props.currentUser.id && (
                                 <Grid item xs={10}>
-                                    <Typography align="right" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
+                                    <Typography align="right" style={{ padding: 5, color: message.id === 'bot' ? 'green' : message.id === "stock" ? 'purple' : 'black' }}>{message.body}</Typography>
                                 </Grid>
                             )}
                         </Grid>
