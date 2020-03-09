@@ -3,10 +3,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
 const http = require('http');
-const WebSocket = require('ws');
+const { Server } = require('ws');
 
 const app = express();
-var corsOptions = { origin: "http://localhost:3000" };
+var corsOptions = { origin: "*" };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,10 +35,14 @@ app.listen(PORT, () => {
 });
 
 const wss = new WebSocket.Server({ server: app });
-console.log(wss);
+
 wss.on('connection', (ws) => {
-    console.log("conne")
-    ws.on('open', () => console.log("fsfs"))
+    console.log('Client connected');
     ws.on('close', () => console.log('Client disconnected'));
-    ws.send('message');
 });
+
+setInterval(() => {
+    wss.clients.forEach((client) => {
+      client.send(new Date().toTimeString());
+    });
+}, 1000);
