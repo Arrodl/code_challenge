@@ -8,6 +8,28 @@ const { Server } = require('ws');
 
 const app = express();
 
+var corsOptions = { origin: "http://localhost:3000" };
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
+    res.header(
+        "Access-Control-Allow-Headers",
+        "x-access-token, Origin, Content-Type, Accept"
+    );
+    next();
+});
+
+const initial = () => {};
+
+// TODO: Remove forse for production
+db.sequelize.sync({ force: false }).then(() => {
+    initial();
+});
+
+require('./app/routes/auth.routes')(app);
+require('./app/routes/message.routes')(app);
+
 //initialize a simple http server
 const server = http.createServer(app);
 
@@ -33,25 +55,3 @@ wss.on('connection', (ws) => {
 server.listen(process.env.PORT || 8080, () => {
     console.log(`Server started on port ${server.address().port} :)`);
 });
-
-var corsOptions = { origin: "http://localhost:3000" };
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(function(req, res, next) {
-    res.header(
-        "Access-Control-Allow-Headers",
-        "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-});
-
-const initial = () => {};
-
-// TODO: Remove forse for production
-db.sequelize.sync({ force: false }).then(() => {
-    initial();
-});
-
-require('./app/routes/auth.routes')(app);
-require('./app/routes/message.routes')(app);

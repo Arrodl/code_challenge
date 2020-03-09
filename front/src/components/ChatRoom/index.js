@@ -29,10 +29,10 @@ export default (props = {
     webSocket.onerror = (e) => {
         console.log("error")
     }
-    
-    // const socket = io('https://codechallengeedge.herokuapp.com');
 
-    // console.log(socket);
+    webSocket.onmessage = (e) => {
+        console.log("Message", e);
+    }
 
     const sendMessage = async () => {
         const data = { body, user_id: props.currentUser.id };
