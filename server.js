@@ -34,7 +34,8 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const wss = new WebSocket.Server({ server: app });
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
 console.log(wss);
 wss.on('connection', (ws) => {
     console.log("conne")

@@ -7,7 +7,7 @@ export default (props = {
 }) => {
     const [data, setData] = useState([]);
     const [body, setBody] = useState("");
-    const [webSocket] = useState(new WebSocket('wss://codechallengeedge.herokuapp.com'));
+    const [webSocket] = useState(new WebSocket('ws://codechallengeedge.herokuapp.com/WebsocketHome/actions'));
 
     useEffect(() => {
         const getMessages = async () => {
@@ -28,8 +28,6 @@ export default (props = {
     webSocket.onopen = (e => {
         console.log("Open", e);
     })
-
-    console.log(webSocket);
 
     const sendMessage = async () => {
         await axios.post('https://codechallengeedge.herokuapp.com/messages', { body, user_id: props.currentUser.id }).then(r => r.data);
