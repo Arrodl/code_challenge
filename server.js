@@ -45,7 +45,7 @@ const io = socketIO(server, { handlePreflightRequest: (req, res) => {
     res.writeHead(200, headers);
     res.end();
 } });
-io.origins('*:*')
+io.origins('http://localhost:3000')
 io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
