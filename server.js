@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("./app/models");
 const http = require('http');
 const { Server } = require('ws');
+const socketIO = require('socket.io');
 
 const app = express();
 var corsOptions = { origin: "*" };
@@ -34,15 +35,11 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const wss = new Server({ server: app });
+const io = socketIO(app);
 
-wss.on('connection', (ws) => {
+io.on('connection', (socket) => {
     console.log('Client connected');
-    ws.on('close', () => console.log('Client disconnected'));
+    socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
-setInterval(() => {
-    wss.clients.forEach((client) => {
-      client.send(new Date().toTimeString());
-    });
-}, 1000);
+setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
