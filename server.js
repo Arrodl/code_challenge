@@ -37,7 +37,7 @@ app.listen(PORT, () => {
 
 const server = http.Server(app);
 
-const io = socketIO(server);
+const io = socketIO.listen(server);
 
 io.on('connection', (socket) => {
     console.log('Client connected');
