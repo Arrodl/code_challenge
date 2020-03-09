@@ -22,8 +22,12 @@ export default (props = {
     }, []);
 
     webSocket.onerror = (e => {
-        console.log(e);
+        console.log("Error", e);
     });
+
+    webSocket.onopen = (e => {
+        console.log("Open", e);
+    })
 
     console.log(webSocket);
 
