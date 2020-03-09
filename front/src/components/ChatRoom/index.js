@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, TextField, InputAdornment, Button, Typography, Paper } from '@material-ui/core';
 import axios from 'axios';
-import io from 'socket.io';
+import io from 'socket.io-client';
 
 export default (props = {
     currentUser: null
