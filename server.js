@@ -6,6 +6,7 @@ const Message = db.message;
 const http = require('http');
 const { Server } = require('ws');
 const fs = require('fs');
+const request = require('request');
 
 const app = express();
 
@@ -44,9 +45,22 @@ wss.on('connection', (ws) => {
         const data = JSON.parse(message);
         // Check if command
         if (data.command) {
+            const file = fs.createWriteStream(`file.jpg`);
             const fileName = `https://stooq.com/q/l/?s=${data.command}&f=sd2t2ohlcv&h&e=csv`;
-            const file = fs.createWriteStream(fileName);
-            console.log(file);
+            const stream = request({
+                uri: fileName,
+                headers: {
+                    'Accept': 'text/csv',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8,ro;q=0.7,ru;q=0.6,la;q=0.5,pt;q=0.4,de;q=0.3',
+                    'Cache-Control': 'max-age=0',
+                    'Connection': 'keep-alive',
+                    'Upgrade-Insecure-Requests': '1',
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+                }
+            }).pipe(file).on(e => {
+                console.log(e);
+            })
         } else {
             //log the received message and send it back to the client
             Message.create(data).then(res => {
