@@ -51,21 +51,23 @@ export default (props = {
     return (
         <div style={{ position: 'relative', padding: 10, paddingBottom: 60, height: '80vh', minWidth: 350, maxWidth: 350 }} >
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: 'calc(80vh)', maxHeight: 'calc(80vh - 90px)', overflow: 'scroll' }}>
-                {data.map(message => (
-                    <Grid key={message.id} container>
-                        {message.userId !== props.currentUser.id && (
-                            <Grid item xs={10}>
-                                <Typography align="left" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
-                            </Grid>
-                        )}
-                        <Grid item xs={2} />
-                        {message.userId === props.currentUser.id && (
-                            <Grid item xs={10}>
-                                <Typography align="right" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
-                            </Grid>
-                        )}
-                    </Grid>
-                ))}
+                {data && (
+                    data.map(message => (
+                        <Grid key={message.id} container>
+                            {message.userId !== props.currentUser.id && (
+                                <Grid item xs={10}>
+                                    <Typography align="left" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
+                                </Grid>
+                            )}
+                            <Grid item xs={2} />
+                            {message.userId === props.currentUser.id && (
+                                <Grid item xs={10}>
+                                    <Typography align="right" style={{ padding: 5, color: message.id === 'bot' ? 'green' : 'black' }}>{message.body}</Typography>
+                                </Grid>
+                            )}
+                        </Grid>
+                    ))
+                )}
             </div>
             <TextField
                 value={body}

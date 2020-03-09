@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Session from './components/Session';
 import ChatRoom from './components/ChatRoom';
 import { createMuiTheme, ThemeProvider, Paper } from '@material-ui/core';
-import { useCurrentUser } from './core/authentication';
+import { useCurrentUser, logOut } from './core/authentication';
 const history = require("history").createBrowserHistory();
 
 const theme = createMuiTheme({
@@ -61,7 +61,11 @@ const App = connect((state, ownProps) => ({
     
     return (
         <ThemeProvider theme={theme}>
-            <Header currentUser={props.currentUser} deleteUser={() => props.setUser(null)} />
+            <Header currentUser={props.currentUser} deleteUser={() => {
+                logOut();
+                history.push('/');
+                props.setUser(null);
+            }} />
             <Router history={history}>
                 <Switch>
                     <div style={{

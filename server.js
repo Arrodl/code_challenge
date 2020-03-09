@@ -40,7 +40,6 @@ const server = http.createServer(app);
 const wss = new Server({ server });
 
 wss.on('connection', (ws) => {
-
     //connection is up, let's add a simple simple event
     ws.on('message', (message) => {
         const data = JSON.parse(message);

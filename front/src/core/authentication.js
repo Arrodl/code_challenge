@@ -11,6 +11,11 @@ const getUser = () => secure.get('cc:user');
 
 const setLoggedUser = (value) => secure.set('cc:user', value);
 
+export const logOut = async () => {
+    secure.set('cc:token', null);
+    secure.set('cc:user', null);
+};
+
 export const logIn = async (data = { username: "", password: "" }) => {
     return await axios.post('http://codechallengeedge.herokuapp.com/api/auth/signin', data)
         .then(r => {
