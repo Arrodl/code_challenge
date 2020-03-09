@@ -25,7 +25,6 @@ const initial = () => {};
 
 // TODO: Remove forse for production
 db.sequelize.sync({ force: false }).then(() => {
-    console.log('Drop and Resync Db');
     initial();
 });
 
@@ -48,6 +47,6 @@ io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
 });
-server.listen(PORT, () => {
+io.listen(PORT + 1, () => {
     console.log("ws")
 });
