@@ -19,17 +19,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-var connectedUsers = [];
-
 const initial = () => {};
 
 // TODO: Remove forse for production
 db.sequelize.sync({ force: false }).then(() => {
     initial();
-});
-
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
 });
 
 require('./app/routes/auth.routes')(app);
@@ -43,10 +37,8 @@ app.listen(PORT, () => {
 
 const server = http.createServer(app);
 const io = socketIO(server);
+console.log(io);
 io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
-});
-io.listen(PORT + 1, () => {
-    console.log("ws")
 });
