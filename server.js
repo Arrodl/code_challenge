@@ -43,7 +43,7 @@ wss.on('connection', (ws) => {
 
         //log the received message and send it back to the client
         Message.create(message).then(res => {
-            ws.send(message);
+            ws.send(res);
         });
     });
 
