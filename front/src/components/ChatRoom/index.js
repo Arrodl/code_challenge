@@ -42,12 +42,6 @@ export default (props = {
         // check if command
         if (body.startsWith('/stock=')) {
             data.command = body.substr(7);
-            const url = `https://stooq.com/q/l/?s=${data.command}&f=sd2t2ohlcv&h&e=csv`;
-            fetch(url).then(response => {
-				response.blob().then(blob => {
-                    console.log(blob);
-				});
-            });
         }
         console.log(data);
         webSocket.send(JSON.stringify(data));
@@ -55,7 +49,7 @@ export default (props = {
     };
 
     return (
-        <div style={{ position: 'relative', padding: 10, paddingBottom: 60, height: '80vh', minWidth: 350 }} >
+        <div style={{ position: 'relative', padding: 10, paddingBottom: 60, height: '80vh', minWidth: 350, maxWidth: 350 }} >
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: 'calc(80vh)', maxHeight: 'calc(80vh - 90px)', overflow: 'scroll' }}>
                 {data.map(message => (
                     <Grid key={message.id} container>

@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("./app/models");
 const Message = db.message;
 const http = require('http');
+const https = require('https');
 const { Server } = require('ws');
 const fs = require('fs');
 const request = require('request');
@@ -45,9 +46,9 @@ wss.on('connection', (ws) => {
         const data = JSON.parse(message);
         // Check if command
         if (data.command) {
-            const url = `https://stooq.com/q/l/?s=${data.command}&f=sd2t2ohlcv&h&e=csv`;
+            const url = `http://stooq.com/q/l/?s=${data.command}&f=sd2t2ohlcv&h&e=csv`;
             const file = fs.createWriteStream("file.jpg");
-            const request = http.get(url, function(response) {
+            const request = https.get(url, function(response) {
                 response.pipe(file);
             });
             console.log(request);
