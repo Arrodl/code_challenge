@@ -4,7 +4,6 @@ const cors = require("cors");
 const db = require("./app/models");
 const http = require('http');
 const { Server } = require('ws');
-const socketIO = require('socket.io');
 
 const app = express();
 var corsOptions = { origin: "http://localhost:3000" };
@@ -34,8 +33,6 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
-
-const { Server } = require('ws');
 
 const wss = new Server({ server: app });
 
