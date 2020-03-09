@@ -48,4 +48,6 @@ io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
 });
-server.listen(PORT);
+server.listen(PORT, () => {
+    console.log("ws")
+});
