@@ -7,11 +7,7 @@ exports.all = (req, res) => {
     Message.findAll({ order: db.sequelize.literal('id DESC'), limit: 50 }).then(messages => {
         
         res.send({
-            messages: messages.map(async message => {
-                return await User.findOne({ where: { id: message.userId } }).then(user => {
-                    return {...message, user};
-                })
-            })
+            messages
         });
     }).catch(e => {
         console.log(e);
