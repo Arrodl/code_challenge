@@ -37,7 +37,7 @@ app.listen(PORT, () => {
 
 const { Server } = require('ws');
 
-const wss = new Server({ server });
+const wss = new Server({ server: app });
 
 wss.on('connection', (ws) => {
     console.log('Client connected');
