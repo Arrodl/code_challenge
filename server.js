@@ -43,12 +43,12 @@ wss.on('connection', (ws) => {
 
         //log the received message and send it back to the client
         Message.create(message).then(res => {
-            ws.send(res);
+            ws.send(JSON.stringify(res));
         });
     });
 
     //send immediatly a feedback to the incoming connection    
-    ws.send({ id: 'bot', body: "Welcome to this chatroom!" });
+    ws.send(JSON.stringify({ id: 'bot', body: "Welcome to this chatroom!" }));
 });
 
 //start our server
